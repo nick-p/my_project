@@ -4,10 +4,12 @@ try {
     $pdo = new PDO('mysql:host=localhost;dbname=ijdb;charset=utf8', 'ijdbuser', 'mypassword');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = 'SELECT `joketext`, `id` FROM `joke`';
-    $jokes = $pdo->query($sql);
+    $sql = 'DELETE FROM `joke` WHERE `id` = :id';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $_POST['id']);
+    $stmt->execute();
 
-    $title = 'Joke list';
+    header('location: jokes.php');
 
     ob_start();
 
