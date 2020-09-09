@@ -12,3 +12,9 @@ function totalJokes($pdo) {
     return $row[0];
 }
 
+function insertJoke($pdo, $joketext, $authorId) {
+    $query = 'INSERT INTO `joke` (`joketext`, `jokedate`, `authorId`) 
+        VALUES (:joketext, CURDATE(), :authorId)';
+    $parameters = [':joketext' => $joketext, ':authorId' => $authorId];
+    query($pdo, $query, $parameters);
+}
